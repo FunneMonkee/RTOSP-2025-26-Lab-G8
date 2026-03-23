@@ -41,6 +41,17 @@ static int pop(char *buffer) {
 
   return 1;
 }
+
+pop {
+  if list
+    empty return;
+
+  node = first entry in list;
+  copy to temp buffer;
+  remove node from list;
+  free memory;
+}
+
 static int push(char *buffer) {
   struct queue_item *node_queue =
       kmalloc(sizeof(struct queue_item), GFP_KERNEL);
@@ -49,6 +60,17 @@ static int push(char *buffer) {
   strcpy(node_queue->buffer, buffer);
   list_add_tail(&node_queue->node, &head);
   return 1;
+}
+
+push {
+  node = allocate node;
+
+  if error
+    return;
+
+  copy from temp buffer to node;
+  add node to queue tail;
+  ;
 }
 
 int proc_open(struct inode *inode, struct file *filp) {
@@ -76,6 +98,25 @@ ssize_t proc_read(struct file *filp, char __user *buf, size_t count,
   *f_pos += count - len;
   return len;
 }
+
+read {
+  init buffer, ret and len;
+
+  if position
+    error return;
+
+  if pop
+    into buffer error return;
+
+  if buffer
+    len error return;
+
+  if user
+    copy error return;
+
+  increment position //???
+}
+
 ssize_t proc_write(struct file *filp, const char *buf, size_t count,
                    loff_t *f_pos) {
   int ret;
@@ -90,6 +131,23 @@ ssize_t proc_write(struct file *filp, const char *buf, size_t count,
   if (!push(buffer))
     return -EFAULT;
   return count;
+}
+
+write {
+  init ret and buffer;
+
+  if size
+    error return;
+
+  copy value from user;
+
+  if copy
+    error return;
+
+  init buffer position;
+
+  if error
+    on push return;
 }
 
 int proc_close(struct inode *inode, struct file *filp) {
