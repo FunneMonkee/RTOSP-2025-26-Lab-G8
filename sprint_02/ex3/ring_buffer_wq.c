@@ -1,9 +1,9 @@
-#include <asm/uaccess.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/mutex.h>
 #include <linux/proc_fs.h>
 #include <linux/sched.h>
+#include <linux/uaccess.h>
 #include <linux/wait.h>
 
 #define ENTRY_NAME "ring_buffer"

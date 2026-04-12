@@ -1,0 +1,7 @@
+make FILE=NAME
+sudo insmod NAME.ko
+lsmod | grep NAME
+ls /proc/NAME
+sudo dmesg | tail 
+or dmesg -w
+sudo rmmod NAME 

@@ -4,11 +4,7 @@
 
 #define ENTRY_NAME "tsc"
 
-static inline unsigned long long read_tsc(void) {
-  unsigned int lo, hi;
-  asm volatile("rdtsc" : "=a"(lo), "=d"(hi));
-  return ((unsigned long long)hi << 32) | lo;
-}
+static inline unsigned long long read_tsc(void) { return ktime_get_ns(); }
 
 ssize_t tsc_read(struct file *file, char __user *buf, size_t count,
                  loff_t *ppos) {

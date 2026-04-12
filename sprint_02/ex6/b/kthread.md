@@ -3,4 +3,8 @@ Completions are a synchronization mechanism
 - If you have one or more threads that must wait for some kernel activity to have reached a point or a specific state, completions can provide a race-free solution to this problem
 - Completions are built on top of the waitqueue and wakeup infrastructure of the Linux scheduler.
 
-for b atomic inc and dec are not needed since completions are used, so we enfore a proper order of operations
+for b atomic inc and dec are not needed since completions are used, so we enfore a proper order of operations (although its still safer to use atomics if the scope is not as focused as this one and other cpus and threads get involved).
+
+![atomic_b](../../imgs/atomic_b.png)
+
+similar to atomic_a but here we process is in a single "line of work" of signal -> write -> read.

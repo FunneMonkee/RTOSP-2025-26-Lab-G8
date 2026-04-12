@@ -1,10 +1,10 @@
-#include <asm/uaccess.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/mutex.h>
 #include <linux/proc_fs.h>
 #include <linux/sched.h>
 #include <linux/semaphore.h>
+#include <linux/uaccess.h>
 
 #define ENTRY_NAME "ring_buffer"
 #define BUFFER_LEN 100
@@ -117,7 +117,6 @@ ssize_t proc_read(struct file *filp, char __user *buf, size_t count,
     return -EFAULT;
   *f_pos += count - len;
 
-  wake_up_interruptible(&write_queue);
   return len;
 }
 ssize_t proc_write(struct file *filp, const char *buf, size_t count,

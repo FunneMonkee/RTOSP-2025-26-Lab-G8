@@ -1,4 +1,3 @@
-#include <asm/uaccess.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/mutex.h>
@@ -6,6 +5,7 @@
 #include <linux/rbtree.h>
 #include <linux/sched.h>
 #include <linux/slab.h>
+#include <linux/uaccess.h>
 
 #define BUFFER_LEN 100
 #define ENTRY_NAME "sorted_queue"
